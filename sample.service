@@ -1,0 +1,14 @@
+[Unit]
+Description=P1
+Requires=
+After=network.target
+
+[Install]
+WantedBy=multi-user.target
+
+[Service]
+ExecStart=java -jar /opt/sample/service.jar
+User=maria
+Restart=always
+RestartSec=10
+Environment=PORT=8888
