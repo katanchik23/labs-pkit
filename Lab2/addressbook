@@ -1,0 +1,38 @@
+#!/bin/bash
+
+ADDRESS_BOOK_FILE="addressbook.txt"
+
+if [ ! -e "$ADDRESS_BOOK_FILE" ]; then
+    touch "$ADDRESS_BOOK_FILE"
+fi
+
+case "$1" in
+    new)
+        name="$2"
+        email="$3"
+        echo "$name $email" >> "$ADDRESS_BOOK_FILE"
+        ;;
+
+    list)
+        if [ -s "$ADDRESS_BOOK_FILE" ]; then
+            cat "$ADDRESS_BOOK_FILE"
+        else
+            echo "Адресна книга порожня"
+        fi
+        ;;
+
+    remove)
+        name="$2"
+        grep -v "^$name " "$ADDRESS_BOOK_FILE" > "$ADDRESS_BOOK_FILE.tmp"
+        mv "$ADDRESS_BOOK_FILE.tmp" "$ADDRESS_BOOK_FILE"
+        ;;
+
+    clear)
+        > "$ADDRESS_BOOK_FILE"
+        ;;
+
+    lookup)
+        name="$2"
+        grep "^$name " "$ADDRESS_BOOK_FILE" | awk '{print $2}'
+        ;;
+esac

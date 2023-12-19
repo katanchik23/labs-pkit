@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: labfive
+  labels:
+    app: labfive
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: labfive
+  template:
+    metadata:
+      labels:
+        app: labfive
+    spec:
+      containers:
+      - name: labfive
+        image: lab
+        ports:
+        - containerPort: 8080
